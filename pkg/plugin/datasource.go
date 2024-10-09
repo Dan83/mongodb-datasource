@@ -39,14 +39,13 @@ func NewDatasource(ctx context.Context, source backend.DataSourceInstanceSetting
 	}
 
 	backend.Logger.Info("Config:", config)
+	if config.Database == "" {
+		return nil, errors.New("missing MongoDB database")
+	}
+
 	if config.ConnectionString != "" {
 		uri = config.ConnectionString
 	} else {
-
-		if config.Database == "" {
-			return nil, errors.New("missing MongoDB database")
-		}
-
 		if config.AuthMethod == "auth-none" {
 			uri = fmt.Sprintf("mongodb://%s:%d", config.Host, config.Port)
 		} else if config.AuthMethod == "auth-username-password" {

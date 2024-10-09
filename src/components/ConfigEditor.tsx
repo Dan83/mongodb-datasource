@@ -120,12 +120,14 @@ export function ConfigEditor(props: Props) {
         <InlineField label="ConenctionString" tooltip="MongoDB ConnectionString">
           <Input
             required
-            id="config-editor-host"
+            id="config-editor-connectionstring"
             value={jsonData.connectionstring}
             onChange={onConnectionStringChange}
             width={100}
           ></Input>
         </InlineField>
+      </InlineFieldRow>
+      <InlineFieldRow label="Connection">
         <InlineField label="Host" tooltip="MongoDB host address">
           <Input required id="config-editor-host" value={jsonData.host} onChange={onHostChange} width={30}></Input>
         </InlineField>
