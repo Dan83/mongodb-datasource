@@ -1,5 +1,5 @@
-import { DataSourceJsonData } from "@grafana/data";
-import { DataQuery } from "@grafana/schema";
+import { DataSourceJsonData } from '@grafana/data';
+import { DataQuery } from '@grafana/schema';
 
 export interface MongoQuery extends DataQuery {
   queryText?: string;
@@ -9,20 +9,19 @@ export interface MongoQuery extends DataQuery {
 }
 
 export const QueryType = {
-  TIMESERIES: "timeseries",
-  TABLE: "table"
+  TIMESERIES: 'timeseries',
+  TABLE: 'table',
 };
 
 export const QueryLanguage = {
-  JSON: "json",
-  JAVASCRIPT: "javascript"
+  JSON: 'json',
+  JAVASCRIPT: 'javascript',
 };
 
-
 export const DEFAULT_QUERY: Partial<MongoQuery> = {
-  queryText: "[]",
+  queryText: '[]',
   queryType: QueryType.TIMESERIES,
-  queryLanguage: QueryLanguage.JSON
+  queryLanguage: QueryLanguage.JSON,
 };
 
 export interface DataPoint {
@@ -41,15 +40,15 @@ export interface DataSourceResponse {
 }
 
 export const MongoDBAuthMethod = {
-  NONE: "auth-none",
-  USERNAME_PASSWORD: "auth-username-password"
+  NONE: 'auth-none',
+  USERNAME_PASSWORD: 'auth-username-password',
 };
-
 
 /**
  * These are options configured for each DataSource instance
  */
 export interface MongoDataSourceOptions extends DataSourceJsonData {
+  connectionstring?: string;
   host?: string;
   port?: number;
   database?: string;
