@@ -38,6 +38,7 @@ func NewDatasource(ctx context.Context, source backend.DataSourceInstanceSetting
 		return nil, err
 	}
 
+	backend.Logger.Info("Config:", config)
 	if config.ConnectionString != "" {
 		uri = config.ConnectionString
 	} else {
