@@ -1,13 +1,22 @@
 import React, { ChangeEvent } from "react";
-import { Divider, Field, FieldSet, InlineField, InlineFieldRow, Input, RadioButtonGroup, SecretInput } from "@grafana/ui";
+import {
+  Divider,
+  Field,
+  FieldSet,
+  InlineField,
+  InlineFieldRow,
+  Input,
+  RadioButtonGroup,
+  SecretInput,
+} from "@grafana/ui";
 import { DataSourcePluginOptionsEditorProps, SelectableValue } from "@grafana/data";
 import { MongoDataSourceOptions, MySecureJsonData, MongoDBAuthMethod } from "../types";
 
-interface Props extends DataSourcePluginOptionsEditorProps<MongoDataSourceOptions, MySecureJsonData> { }
+interface Props extends DataSourcePluginOptionsEditorProps<MongoDataSourceOptions, MySecureJsonData> {}
 
 const mongoDBAuthMethods: SelectableValue[] = [
   { label: "None", value: MongoDBAuthMethod.NONE },
-  { label: "Username/Password", value: MongoDBAuthMethod.USERNAME_PASSWORD }
+  { label: "Username/Password", value: MongoDBAuthMethod.USERNAME_PASSWORD },
 ];
 
 export function ConfigEditor(props: Props) {
@@ -52,7 +61,6 @@ export function ConfigEditor(props: Props) {
     });
   };
 
-
   const onPortChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
       ...options,
@@ -62,7 +70,6 @@ export function ConfigEditor(props: Props) {
       },
     });
   };
-
 
   const onDatabaseChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
@@ -102,7 +109,7 @@ export function ConfigEditor(props: Props) {
       },
       secureJsonData: {
         ...options.secureJsonData,
-        password: ""
+        password: "",
       },
     });
   };
@@ -120,13 +127,7 @@ export function ConfigEditor(props: Props) {
           ></Input>
         </InlineField>
         <InlineField label="Host" tooltip="MongoDB host address">
-          <Input
-            required
-            id="config-editor-host"
-            value={jsonData.host}
-            onChange={onHostChange}
-            width={30}
-          ></Input>
+          <Input required id="config-editor-host" value={jsonData.host} onChange={onHostChange} width={30}></Input>
         </InlineField>
         <InlineField label="Port" tooltip="MongoDB port">
           <Input
@@ -162,7 +163,7 @@ export function ConfigEditor(props: Props) {
         </Field>
       </FieldSet>
 
-      {jsonData.authType === MongoDBAuthMethod.USERNAME_PASSWORD &&
+      {jsonData.authType === MongoDBAuthMethod.USERNAME_PASSWORD && (
         <>
           <InlineField label="Username" tooltip="MongoDB username">
             <Input
@@ -183,8 +184,9 @@ export function ConfigEditor(props: Props) {
               onReset={onResetPassword}
               onChange={onPasswordChange}
             />
-          </InlineField></>
-      }
+          </InlineField>
+        </>
+      )}
     </>
   );
 }

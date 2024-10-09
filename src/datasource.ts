@@ -1,4 +1,11 @@
-import { DataSourceInstanceSettings, CoreApp, ScopedVars, DataQueryRequest, DataQueryResponse, DateTime } from "@grafana/data";
+import {
+  DataSourceInstanceSettings,
+  CoreApp,
+  ScopedVars,
+  DataQueryRequest,
+  DataQueryResponse,
+  DateTime,
+} from "@grafana/data";
 import { DataSourceWithBackend, getTemplateSrv } from "@grafana/runtime";
 import { parseJsQuery } from "./utils";
 import { MongoQuery, MongoDataSourceOptions, DEFAULT_QUERY, QueryLanguage } from "./types";
@@ -7,8 +14,8 @@ import { Observable } from "rxjs";
 function datetimeToJson(datetime: DateTime) {
   return JSON.stringify({
     $date: {
-      $numberLong: datetime.toDate().getTime().toString()
-    }
+      $numberLong: datetime.toDate().getTime().toString(),
+    },
   });
 }
 
@@ -33,7 +40,7 @@ export class DataSource extends DataSourceWithBackend<MongoQuery, MongoDataSourc
   }
 
   query(request: DataQueryRequest<MongoQuery>): Observable<DataQueryResponse> {
-    const queries = request.targets.map(query => {
+    const queries = request.targets.map((query) => {
       let queryText = query.queryText!;
       if (query.queryLanguage === QueryLanguage.JAVASCRIPT) {
         const { jsonQuery } = parseJsQuery(queryText);
@@ -42,8 +49,9 @@ export class DataSource extends DataSourceWithBackend<MongoQuery, MongoDataSourc
 
       return {
         ...query,
-        queryText: queryText.replaceAll(/"\$from"/g, datetimeToJson(request.range.from))
-          .replaceAll(/"\$to"/g, datetimeToJson(request.range.to))
+        queryText: queryText
+          .replaceAll(/"\$from"/g, datetimeToJson(request.range.from))
+          .replaceAll(/"\$to"/g, datetimeToJson(request.range.to)),
       };
     });
 
