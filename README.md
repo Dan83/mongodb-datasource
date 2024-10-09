@@ -6,7 +6,7 @@ This plugin provides a Grafana datasource for querying and visualizing data from
 ![screenshot](/static/screenshot.png)
 
 ## Download
-[Download the latest build](https://github.com/haohanyang/mongodb-datasource/actions/runs/11220959466/artifacts/2025339789)
+[Download the latest build](https://github.com/Dan83/mongodb-datasource/actions/runs/11257633123/artifacts/2035572799)
 
 
 ## Use
