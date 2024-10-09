@@ -22,6 +22,15 @@ export function ConfigEditor(props: Props) {
     jsonData.port = 27017;
   }
 
+  const onConnectionStringChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onOptionsChange({
+      ...options,
+      jsonData: {
+        ...jsonData,
+        host: event.target.value,
+      },
+    });
+  };
 
   const onHostChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
@@ -101,6 +110,15 @@ export function ConfigEditor(props: Props) {
   return (
     <>
       <InlineFieldRow label="Connection">
+        <InlineField label="ConenctionString" tooltip="MongoDB ConnectionString">
+          <Input
+            required
+            id="config-editor-host"
+            value={jsonData.connectionstring}
+            onChange={onConnectionStringChange}
+            width={100}
+          ></Input>
+        </InlineField>
         <InlineField label="Host" tooltip="MongoDB host address">
           <Input
             required

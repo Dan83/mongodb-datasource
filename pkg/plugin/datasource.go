@@ -38,19 +38,25 @@ func NewDatasource(ctx context.Context, source backend.DataSourceInstanceSetting
 		return nil, err
 	}
 
-	if config.Database == "" {
-		return nil, errors.New("missing MongoDB database")
-	}
-
-	if config.AuthMethod == "auth-none" {
-		uri = fmt.Sprintf("mongodb://%s:%d", config.Host, config.Port)
-	} else if config.AuthMethod == "auth-username-password" {
-		if config.Username == "" || config.Secrets.Password == "" {
-			return nil, errors.New("missing MongoDB username or password")
-		}
-		uri = fmt.Sprintf("mongodb://%s:%s@%s:%d", config.Username, config.Secrets.Password, config.Host, config.Port)
+	if config.ConnectionString != "" {
+		uri = config.ConnectionString
 	} else {
-		return nil, errors.New("authentication method not supported")
+
+		if config.Database == "" {
+			return nil, errors.New("missing MongoDB database")
+		}
+
+		if config.AuthMethod == "auth-none" {
+			uri = fmt.Sprintf("mongodb://%s:%d", config.Host, config.Port)
+		} else if config.AuthMethod == "auth-username-password" {
+			if config.Username == "" || config.Secrets.Password == "" {
+				return nil, errors.New("missing MongoDB username or password")
+			}
+			uri = fmt.Sprintf("mongodb://%s:%s@%s:%d", config.Username, config.Secrets.Password, config.Host, config.Port)
+		} else {
+			return nil, errors.New("authentication method not supported")
+		}
+
 	}
 
 	opts := options.Client().ApplyURI(uri)
